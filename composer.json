@@ -1,0 +1,14 @@
+{
+    "name": "fallen/longhash",
+    "autoload": {
+        "psr-4": {
+            "Fallen\\Longhash\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "fallen"
+        }
+    ],
+    "require": {}
+}
