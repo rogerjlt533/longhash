@@ -27,7 +27,12 @@ class Bite
     {
         $arr = explode(' ', $content);
         foreach ($arr as &$v) {
-            $v = pack("H" . strlen(base_convert($v, 2, 16)), base_convert($v, 2, 16));
+            $length = strlen(base_convert($v, 2, 16));
+            if ($length <= 1) {
+                $v = pack("H2", "0" . base_convert($v, 2, 16));
+            } else {
+                $v = pack("H" . strlen(base_convert($v, 2, 16)), base_convert($v, 2, 16));
+            }
         }
         return join('', $arr);
     }
