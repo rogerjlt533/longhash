@@ -33,6 +33,6 @@ class HashTool
     public function decode($content)
     {
         $serials = $this->salt->getSerial();
-        return Bite::bin2Text(Crypt::encode($content, array_reverse($serials)));
+        return Bite::bin2Text(Crypt::decode($content, array_reverse($serials)));
     }
 }
