@@ -13,5 +13,7 @@ require '../vendor/autoload.php';
 $content = "test";
 
 $hashTool = new \Fallen\Longhash\HashTool("longhash");
+
 $encodeText = $hashTool->encode($content);
+
 $decodeText = $hashTool->decode($encodeText);
