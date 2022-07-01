@@ -3,6 +3,9 @@
 ##功能介绍
 对于长文本内容使用关键词进行加密/解密
 
+##安装
+composer require fallen/longhash
+
 ##使用范例
 
 require '../vendor/autoload.php';
