@@ -11,19 +11,16 @@ namespace Fallen\Longhash\Core;
 
 class Crypt
 {
-    private static function filterSerial($serials, $length) {
-        $serials = array_filter($serials, function ($serial) use ($length) {
-            return $serial >= $length ? false : true;
-        });
+    private static function filterSerial($serials) {
         if (count($serials) == 0) {
             return [0, []];
         }
         $serials = array_values($serials);
         if (count($serials) == 1) {
-            if ($serials[0] == $length) {
+            if ($serials[0] == 8) {
                 $serials[] = 1;
             } else {
-                $serials[] = $length;
+                $serials[] = 8;
             }
         }
         return [count($serials), $serials];
@@ -31,11 +28,7 @@ class Crypt
 
     private static function convert($value, $serials) {
         $values = str_split($value);
-        $str_len = strlen($value);
-        $serials = array_filter($serials, function ($serial) use ($str_len) {
-            return $serial >= $str_len ? false : true;
-        });
-        list($serial_count, $serials) = self::filterSerial($serials, $str_len);
+        list($serial_count, $serials) = self::filterSerial($serials);
         if ($serial_count == 0) {
             return $value;
         }
@@ -55,17 +48,11 @@ class Crypt
             return base64_encode($content);
         }
         $values = [];
-        $list = explode(' ', $content);
-        foreach ($list as $unit) {
-            $items = [];
-            $children = str_split($unit, 8);
-            foreach ($children as $child) {
-                $items[] = self::convert($child, $serials);
-            }
-            $values[] = implode('', $items);
-            unset($items);
+        $list = str_split($content, 8);
+        foreach ($list as $item) {
+            $values[] = self::convert($item, $serials);
         }
-        return base64_encode(implode(' ', $values));
+        return base64_encode(implode('', $values));
     }
 
     public static function decode($content, $serials = []) {
@@ -74,16 +61,10 @@ class Crypt
             return $content;
         }
         $values = [];
-        $list = explode(' ', $content);
-        foreach ($list as $unit) {
-            $items = [];
-            $children = str_split($unit, 8);
-            foreach ($children as $child) {
-                $items[] = self::convert($child, $serials);
-            }
-            $values[] = implode('', $items);
-            unset($items);
+        $list = str_split($content, 8);
+        foreach ($list as $item) {
+            $values[] = self::convert($item, $serials);
         }
-        return implode(' ', $values);
+        return implode('', $values);
     }
 }
