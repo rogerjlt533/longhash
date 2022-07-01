@@ -25,8 +25,8 @@ class Salt
     private function getSerialNum() {
         $codes = str_split($this->code);
         $num = 0;
-        foreach ($codes as $code) {
-            $num += ord($code);
+        foreach ($codes as $key => $code) {
+            $num += ($key + 1) * ord($code);
         }
         return $num;
     }
