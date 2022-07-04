@@ -17,10 +17,10 @@ class Crypt
         }
         $serials = array_values($serials);
         if (count($serials) == 1) {
-            if ($serials[0] == 8) {
-                $serials[] = 1;
+            if ($serials[0] == 7) {
+                $serials[] = 0;
             } else {
-                $serials[] = 8;
+                $serials[] = 7;
             }
         }
         return [count($serials), $serials];
