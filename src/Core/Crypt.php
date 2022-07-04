@@ -33,8 +33,8 @@ class Crypt
             return $value;
         }
         for ($index = 0; $index < count($serials) - 1; $index ++) {
-            $from = $serials[$index] - 1;
-            $dest = $serials[$index + 1] - 1;
+            $from = $serials[$index];
+            $dest = $serials[$index + 1];
             $temp = $values[$from];
             $values[$from] = $values[$dest];
             $values[$dest] = $temp;
